@@ -32,3 +32,18 @@ header h1 {
   text-align: center;
   font-size: 1.25rem;
 }
+
+/* App.css */
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #f4f4f4;
+  color: #222;
+}
+button {
+  cursor: pointer;
+}
+video {
+  border-radius: 4px;
+  background: #000;
+}
