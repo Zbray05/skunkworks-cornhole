@@ -1,9 +1,9 @@
 import React from 'react';
-import VideoRoundRecorder from './components/VideoRoundRecorder';
+import CornholeApp from "./components/CornholeApp.jsx"
 import './App.css';
 
 function App() {
-  return <VideoRoundRecorder />;
+  return <CornholeApp />;
 }
 
 export default App;

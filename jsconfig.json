@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    // 1) Let VS Code know we’re targeting modern ES and using ES module imports:
+    "target": "ES6",
+    "module": "ESNext",
+
+    // 2) Tell it to resolve modules like Node.js (so you can import from 'components/...' if desired):
+    "moduleResolution": "node",
+
+    // 3) Enable JSX support in plain .js/.jsx files:
+    "jsx": "react",
+
+    // 4) (Optional) If you want to use absolute imports from "src/" rather than always doing relative paths:
+    "baseUrl": "src",
+    "paths": {
+      // e.g. import X from "components/X" instead of "../../../components/X"
+      "components/*": ["components/*"]
+    },
+
+    // 5) Allow default imports for modules that might not have a default export typed:
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "build"]
+}

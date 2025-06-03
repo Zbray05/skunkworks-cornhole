@@ -1,0 +1,14 @@
+{
+  // Allow VS Code to automatically suggest imports for JS files
+  "javascript.suggest.autoImports": true,
+  // Allow auto-import for TS if you ever switch to TS
+  "typescript.suggest.autoImports": true,
+  // Make sure auto-complete is generally enabled
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": true
+  },
+  // Make sure VS Code’s TypeScript service knows to use the local version if you have it installed
+  "typescript.tsdk": "node_modules/typescript/lib"
+}
