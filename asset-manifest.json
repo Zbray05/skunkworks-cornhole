@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/skunkworks-cornhole/static/css/main.7b50e688.css",
-    "main.js": "/skunkworks-cornhole/static/js/main.a1043493.js",
-    "static/js/584.7378cd7c.chunk.js": "/skunkworks-cornhole/static/js/584.7378cd7c.chunk.js",
+    "main.js": "/skunkworks-cornhole/static/js/main.67b725dc.js",
+    "static/js/488.c2662cae.chunk.js": "/skunkworks-cornhole/static/js/488.c2662cae.chunk.js",
     "service-worker.js": "/skunkworks-cornhole/service-worker.js",
     "index.html": "/skunkworks-cornhole/index.html",
     "main.7b50e688.css.map": "/skunkworks-cornhole/static/css/main.7b50e688.css.map",
-    "main.a1043493.js.map": "/skunkworks-cornhole/static/js/main.a1043493.js.map",
-    "584.7378cd7c.chunk.js.map": "/skunkworks-cornhole/static/js/584.7378cd7c.chunk.js.map"
+    "main.67b725dc.js.map": "/skunkworks-cornhole/static/js/main.67b725dc.js.map",
+    "488.c2662cae.chunk.js.map": "/skunkworks-cornhole/static/js/488.c2662cae.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7b50e688.css",
-    "static/js/main.a1043493.js"
+    "static/js/main.67b725dc.js"
   ]
 }
