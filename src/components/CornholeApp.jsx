@@ -1,6 +1,7 @@
 import { useState } from "react";
 import VideoRoundRecorder from "./VideoRoundRecorder";
 import Scoreboard from "./Scoreboard";
+import GameStats from "./GameStats";
 
 export default function CornholeApp() {
   const [recordedBlobUrl, setRecordedBlobUrl] = useState(null);
@@ -12,6 +13,7 @@ export default function CornholeApp() {
         setRecordedBlobUrl={setRecordedBlobUrl}
       />
       <Scoreboard />
+      <GameStats/>
     </div>
   );
 }
