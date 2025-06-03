@@ -1,5 +1,3 @@
-// src/components/VideoRecorderModule.jsx
-
 import React, { useEffect, useRef, useState } from "react";
 
 /**
@@ -11,7 +9,7 @@ export default function VideoRecorderModule(props) {
     const videoPreviewRef = useRef(null);
     const playbackVideoRef = useRef(null);
     const mediaRecorderRef = useRef(null);
-    const chunksRef = useRef([]); // Mutable container for recorder data
+    const chunksRef = useRef([]);
     const [mediaStream, setMediaStream] = useState(null);
     const [recording, setRecording] = useState(false);
     const [statusText, setStatusText] = useState("Ready");
@@ -19,7 +17,6 @@ export default function VideoRecorderModule(props) {
     console.error("recordedBlobUrl", recordedBlobUrl);
     const setRecordedBlobUrl = props.setRecordedBlobUrl;
 
-    // On mount: request low-res camera (320×240)
     useEffect(() => {
         async function initCamera() {
             try {
@@ -43,28 +40,26 @@ export default function VideoRecorderModule(props) {
         initCamera();
 
         return () => {
-            // Cleanup tracks on unmount
             if (mediaStream) {
                 mediaStream.getTracks().forEach((t) => t.stop());
             }
         };
-    }, []); // run only once
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-    // Start recording: configure MediaRecorder for low bitrate
     const startRecording = () => {
         if (!mediaStream) return;
 
-        // Clean up any previous URL
         if (recordedBlobUrl) {
             URL.revokeObjectURL(recordedBlobUrl);
             setRecordedBlobUrl(null);
         }
-        chunksRef.current = []; // reset chunks
+        chunksRef.current = [];
 
         try {
             const options = {
                 mimeType: "video/webm; codecs=vp8",
-                videoBitsPerSecond: 200_000, // ~200 kbps
+                videoBitsPerSecond: 200_000,
             };
             const recorder = new MediaRecorder(mediaStream, options);
 
@@ -94,7 +89,6 @@ export default function VideoRecorderModule(props) {
         }
     };
 
-    // Stop recording
     const stopRecording = () => {
         if (mediaRecorderRef.current && recording) {
             mediaRecorderRef.current.stop();
@@ -102,9 +96,6 @@ export default function VideoRecorderModule(props) {
         }
     };
 
-    //
-    // Styles: try to match the screenshot exactly
-    //
     const cardStyle = {
         maxWidth: "360px",
         margin: "1rem auto",
@@ -143,7 +134,7 @@ export default function VideoRecorderModule(props) {
         position: "absolute",
         bottom: 0,
         width: "100%",
-        background: "rgba(232, 212, 141, 0.9)", // slightly darker yellow
+        background: "rgba(232, 212, 141, 0.9)",
         padding: "0.5rem 0",
         textAlign: "center",
         fontWeight: 500,
@@ -171,14 +162,14 @@ export default function VideoRecorderModule(props) {
 
     const startButtonStyle = {
         ...buttonBaseStyle,
-        background: recording ? "#cccccc" : "#2196F3", // blue when active
+        background: recording ? "#cccccc" : "#2196F3",
         color: "#ffffff",
         opacity: recording ? 0.6 : 1,
     };
 
     const stopButtonStyle = {
         ...buttonBaseStyle,
-        background: recording ? "#E53935" : "#cccccc", // red when recording, greyed out otherwise
+        background: recording ? "#E53935" : "#cccccc",
         color: recording ? "#ffffff" : "#666666",
         opacity: recording ? 1 : 0.6,
     };

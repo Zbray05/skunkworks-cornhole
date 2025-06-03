@@ -1,20 +1,9 @@
-// src/components/Scoreboard.jsx
-
 import React, { useState, useEffect } from "react";
 
-/**
- * defaultCalculateScores:
- *   - Input:  llmData (e.g. { team: 'team1', points: 3 })
- *   - Output: { team1score: <number>, team2score: <number> }
- *
- * Feel free to replace this with your own function (via props)
- * if your LLM starts returning a more complex object.
- */
 function defaultCalculateScores(currentScore, scoreData) {
     const result = currentScore || { team1score: 0, team2score: 0 };
     if (!scoreData) return result;
 
-    // Example shape: { team: 'team1' | 'team2', points: <number> }
     if (scoreData.team === "team1") {
         result.team1score += scoreData.points;
     } else if (scoreData.team === "team2") {
@@ -26,34 +15,30 @@ function defaultCalculateScores(currentScore, scoreData) {
 export default function Scoreboard({
     round,
     roundData,
+    onGameComplete,
     calculateScores = defaultCalculateScores,
 }) {
-    // Internal state for each team’s score
     const [team1Score, setTeam1Score] = useState(0);
     const [team2Score, setTeam2Score] = useState(0);
-
-    // Which field is in “edit mode” right now: 'team1' | 'team2' | null
     const [editingField, setEditingField] = useState(null);
-
-    // Temporary input value when editing
     const [tempValue, setTempValue] = useState("");
 
-    // Whenever llmData changes, recalc both scores in one go:
     useEffect(() => {
         const { team1score, team2score } = calculateScores(roundData);
         setTeam1Score(team1score);
         setTeam2Score(team2score);
     }, [roundData, calculateScores]);
 
-    // Called when the user clicks “Edit” on one of the two cards
-    const handleEditClick = (team) => {
-        setEditingField(team);
-        setTempValue(
-            team === "team1" ? team1Score.toString() : team2Score.toString()
-        );
+    const handleGameComplete = () => {
+        const winner = team1Score > team2Score ? "team1" : "team2";
+        onGameComplete(winner, team1Score, team2Score, round);
     };
 
-    // Called when user clicks “Save” after editing a score
+    const handleEditClick = (team) => {
+        setEditingField(team);
+        setTempValue((team === "team1" ? team1Score : team2Score).toString());
+    };
+
     const handleSaveClick = (team) => {
         const val = parseInt(tempValue, 10);
         if (!isNaN(val) && val >= 0) {
@@ -63,21 +48,16 @@ export default function Scoreboard({
         setEditingField(null);
     };
 
-    // Cancel editing (just drop the temp value)
     const handleCancel = () => {
         setEditingField(null);
     };
 
-    // Decide result text based on numeric comparison
     const getResultText = () => {
-        if (team1Score > team2Score) return "Player 1 wins this round!";
-        if (team2Score > team1Score) return "Player 2 wins this round!";
-        return "It's a tie!";
+        return team1Score > team2Score
+            ? "Player 1 wins this round!"
+            : "Player 2 wins this round!";
     };
 
-    //
-    // Inline styles to mimic your screenshot
-    //
     const containerStyle = {
         maxWidth: "360px",
         margin: "1rem auto",
@@ -194,19 +174,35 @@ export default function Scoreboard({
         fontSize: "1rem",
         fontWeight: 500,
         color: "#444444",
+        marginBottom: "0.75rem",
+    };
+
+    const completeButtonStyle = {
+        display: "block",
+        margin: "0.5rem auto 0",
+        padding: "0.5rem 1rem",
+        fontSize: "1rem",
+        backgroundColor: "#4CAF50",
+        color: "#FFF",
+        border: "none",
+        borderRadius: "8px",
+        cursor: "pointer",
     };
 
     return (
         <div style={containerStyle}>
+            {/* Round Header */}
             <div style={roundTextStyle}>Round {round}</div>
             <div style={underlineStyle} />
 
+            {/* Separator */}
             <div style={separatorStyle} />
 
+            {/* Scores Row */}
             <div style={scoresRowStyle}>
+                {/* Player 1 Card */}
                 <div style={cardStyle}>
                     <div style={playerLabelStyle}>Player 1</div>
-
                     {editingField === "team1" ? (
                         <>
                             <input
@@ -246,9 +242,9 @@ export default function Scoreboard({
                     )}
                 </div>
 
+                {/* Player 2 Card */}
                 <div style={cardStyle}>
                     <div style={playerLabelStyle}>Player 2</div>
-
                     {editingField === "team2" ? (
                         <>
                             <input
@@ -289,7 +285,13 @@ export default function Scoreboard({
                 </div>
             </div>
 
-            {false && <div style={resultTextStyle}>{getResultText()}</div>}
+            {/* Result Text (no tie case) */}
+            <div style={resultTextStyle}>{getResultText()}</div>
+
+            {/* Button to finalize this game */}
+            <button style={completeButtonStyle} onClick={handleGameComplete}>
+                Complete Game
+            </button>
         </div>
     );
 }
