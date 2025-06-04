@@ -1,11 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Scoreboard from "./Scoreboard.jsx";
 import GameStats from "./GameStats.jsx";
 import GameHistory from "./GameHistory.jsx";
 import VideoRoundRecorder from "./VideoRoundRecorder.jsx";
+import useModelScore from "../hooks/useModelScore.js";
+
+function readCountFromStorage(key) {
+    try {
+        const val = parseInt(localStorage.getItem(key), 10);
+        return isNaN(val) ? 0 : val;
+    } catch {
+        return 0;
+    }
+}
 
 export default function CornholeApp() {
-    const [gameNumber, setGameNumber] = useState(1);
+    const [gameNumber, setGameNumber] = useState(readCountFromStorage("totalGames") + 1 || 1);
 
     const [gameWinner, setGameWinner] = useState("team1");
 
@@ -15,6 +25,18 @@ export default function CornholeApp() {
     const [totalRounds, setTotalRounds] = useState(0);
 
     const [recordedBlobUrl, setRecordedBlobUrl] = useState(null);
+
+    const {
+        data: roundData,
+        loading: modelLoading,
+        // error: llmError,
+    } = useModelScore(recordedBlobUrl);
+
+    useEffect(() => {
+        if (roundData) {
+            setTotalRounds((prev) => prev + 1);
+        }
+    }, [roundData]);
 
     const handleGameComplete = (winner, final1, final2, roundsCount) => {
         setGameWinner(winner);
@@ -35,17 +57,18 @@ export default function CornholeApp() {
             }}
         >
             <VideoRoundRecorder
+                modelLoading={modelLoading}
                 recordedBlobUrl={recordedBlobUrl}
                 setRecordedBlobUrl={setRecordedBlobUrl}
             />
 
             <Scoreboard
                 round={totalRounds}
-                // roundData={}
+                roundData={roundData}
                 onGameComplete={handleGameComplete}
             />
 
-            <GameStats gameNumber={gameNumber} gameWinner={gameWinner} />
+            <GameStats gameNumber={gameNumber} gameWinner={gameWinner} readCountFromStorage={readCountFromStorage}/>
 
             <GameHistory
                 gameNumber={gameNumber}

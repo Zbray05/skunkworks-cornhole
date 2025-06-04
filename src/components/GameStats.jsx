@@ -1,20 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 
-/**
- * Read an integer from localStorage[key], or return 0 if missing/invalid.
- */
-function readCountFromStorage(key) {
-    try {
-        const val = parseInt(localStorage.getItem(key), 10);
-        return isNaN(val) ? 0 : val;
-    } catch {
-        return 0;
-    }
-}
-
-/**
- * Write an integer to localStorage[key].
- */
 function writeCountToStorage(key, value) {
     try {
         localStorage.setItem(key, value.toString());
@@ -23,15 +8,7 @@ function writeCountToStorage(key, value) {
     }
 }
 
-/**
- * GameStats component
- *
- * Props:
- *   - gameNumber (number): Current game index. When this increments,
- *       we record a completed game.
- *   - gameWinner ("team1" | "team2"): who won that game (cannot be "tie").
- */
-export default function GameStats({ gameNumber, gameWinner }) {
+export default function GameStats({ gameNumber, gameWinner, readCountFromStorage}) {
     const [totalGames, setTotalGames] = useState(0);
     const [team1Wins, setTeam1Wins] = useState(0);
     const [team2Wins, setTeam2Wins] = useState(0);
@@ -47,6 +24,7 @@ export default function GameStats({ gameNumber, gameWinner }) {
         setTeam1Wins(storedTeam1);
         setTeam2Wins(storedTeam2);
         prevGameRef.current = gameNumber;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {

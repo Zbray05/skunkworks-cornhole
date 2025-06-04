@@ -1,33 +1,22 @@
 import React, { useState, useEffect } from "react";
 
-function defaultCalculateScores(currentScore, scoreData) {
-    const result = currentScore || { team1score: 0, team2score: 0 };
-    if (!scoreData) return result;
-
-    if (scoreData.team === "team1") {
-        result.team1score += scoreData.points;
-    } else if (scoreData.team === "team2") {
-        result.team2score += scoreData.points;
-    }
-    return result;
-}
-
-export default function Scoreboard({
-    round,
-    roundData,
-    onGameComplete,
-    calculateScores = defaultCalculateScores,
-}) {
+export default function Scoreboard({ round, roundData, onGameComplete }) {
     const [team1Score, setTeam1Score] = useState(0);
     const [team2Score, setTeam2Score] = useState(0);
     const [editingField, setEditingField] = useState(null);
     const [tempValue, setTempValue] = useState("");
 
     useEffect(() => {
-        const { team1score, team2score } = calculateScores(roundData);
-        setTeam1Score(team1score);
-        setTeam2Score(team2score);
-    }, [roundData, calculateScores]);
+        if (!roundData) return;
+
+        console.log("Updating scores with round data:", roundData);
+
+        if (roundData.team === "team1") {
+            setTeam1Score((prev) => prev + roundData.points);
+        } else if (roundData.team === "team2") {
+            setTeam2Score((prev) => prev + roundData.points);
+        }
+    }, [roundData]);
 
     const handleGameComplete = () => {
         const winner = team1Score > team2Score ? "team1" : "team2";
@@ -50,12 +39,6 @@ export default function Scoreboard({
 
     const handleCancel = () => {
         setEditingField(null);
-    };
-
-    const getResultText = () => {
-        return team1Score > team2Score
-            ? "Player 1 wins this round!"
-            : "Player 2 wins this round!";
     };
 
     const containerStyle = {
@@ -108,7 +91,7 @@ export default function Scoreboard({
         boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
     };
 
-    const playerLabelStyle = {
+    const teamLabelStyle = {
         fontSize: "0.9rem",
         fontWeight: 500,
         marginBottom: "0.5rem",
@@ -191,18 +174,14 @@ export default function Scoreboard({
 
     return (
         <div style={containerStyle}>
-            {/* Round Header */}
             <div style={roundTextStyle}>Round {round}</div>
             <div style={underlineStyle} />
 
-            {/* Separator */}
             <div style={separatorStyle} />
 
-            {/* Scores Row */}
             <div style={scoresRowStyle}>
-                {/* Player 1 Card */}
                 <div style={cardStyle}>
-                    <div style={playerLabelStyle}>Player 1</div>
+                    <div style={teamLabelStyle}>Team 1</div>
                     {editingField === "team1" ? (
                         <>
                             <input
@@ -242,9 +221,8 @@ export default function Scoreboard({
                     )}
                 </div>
 
-                {/* Player 2 Card */}
                 <div style={cardStyle}>
-                    <div style={playerLabelStyle}>Player 2</div>
+                    <div style={teamLabelStyle}>Team 2</div>
                     {editingField === "team2" ? (
                         <>
                             <input
@@ -285,10 +263,6 @@ export default function Scoreboard({
                 </div>
             </div>
 
-            {/* Result Text (no tie case) */}
-            <div style={resultTextStyle}>{getResultText()}</div>
-
-            {/* Button to finalize this game */}
             <button style={completeButtonStyle} onClick={handleGameComplete}>
                 Complete Game
             </button>

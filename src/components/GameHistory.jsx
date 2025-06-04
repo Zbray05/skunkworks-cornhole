@@ -16,9 +16,6 @@ function readHistoryFromStorage() {
     }
 }
 
-/**
- * Writes the array of summaries to localStorage under "gameHistory".
- */
 function writeHistoryToStorage(historyArray) {
     try {
         localStorage.setItem("gameHistory", JSON.stringify(historyArray));
@@ -27,17 +24,6 @@ function writeHistoryToStorage(historyArray) {
     }
 }
 
-/**
- * GameHistory component
- *
- * Props:
- *   - gameNumber (number): current game index (1,2,3,…). When this increments,
- *       record the just‐finished game.
- *   - gameWinner ("team1" | "team2"): winner of that game (no tie).
- *   - team1FinalScore (number): final score for Team 1.
- *   - team2FinalScore (number): final score for Team 2.
- *   - totalRounds (number): number of rounds in that game.
- */
 export default function GameHistory({
     gameNumber,
     gameWinner,

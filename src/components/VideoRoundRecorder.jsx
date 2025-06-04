@@ -14,8 +14,8 @@ export default function VideoRecorderModule(props) {
     const [recording, setRecording] = useState(false);
     const [statusText, setStatusText] = useState("Ready");
     const recordedBlobUrl = props.recordedBlobUrl;
-    console.error("recordedBlobUrl", recordedBlobUrl);
     const setRecordedBlobUrl = props.setRecordedBlobUrl;
+    const modelLoading = props.modelLoading;
 
     useEffect(() => {
         async function initCamera() {
@@ -209,7 +209,7 @@ export default function VideoRecorderModule(props) {
                     <button
                         style={startButtonStyle}
                         onClick={startRecording}
-                        disabled={recording || !mediaStream}
+                        disabled={recording || !mediaStream || modelLoading}
                     >
                         Start Round
                     </button>
