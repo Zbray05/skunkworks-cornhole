@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/skunkworks-cornhole/static/css/main.7b50e688.css",
-    "main.js": "/skunkworks-cornhole/static/js/main.daeaff88.js",
+    "main.js": "/skunkworks-cornhole/static/js/main.c1873d91.js",
     "static/js/488.c2662cae.chunk.js": "/skunkworks-cornhole/static/js/488.c2662cae.chunk.js",
     "service-worker.js": "/skunkworks-cornhole/service-worker.js",
     "index.html": "/skunkworks-cornhole/index.html",
     "main.7b50e688.css.map": "/skunkworks-cornhole/static/css/main.7b50e688.css.map",
-    "main.daeaff88.js.map": "/skunkworks-cornhole/static/js/main.daeaff88.js.map",
+    "main.c1873d91.js.map": "/skunkworks-cornhole/static/js/main.c1873d91.js.map",
     "488.c2662cae.chunk.js.map": "/skunkworks-cornhole/static/js/488.c2662cae.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7b50e688.css",
-    "static/js/main.daeaff88.js"
+    "static/js/main.c1873d91.js"
   ]
 }
