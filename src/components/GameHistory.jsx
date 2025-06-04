@@ -141,7 +141,10 @@ export default function GameHistory({
             {history.length === 0 ? (
                 <div style={emptyMessageStyle}>Start playing to see scores</div>
             ) : (
-                history.map((entry) => (
+                history
+                .slice()
+                .reverse()
+                .map((entry) => (
                     <div key={entry.gameId} style={cardStyle}>
                         <div style={leftColumnStyle}>
                             <div style={gameIdStyle}>Game {entry.gameId}</div>
@@ -155,7 +158,7 @@ export default function GameHistory({
                         </div>
                         <div style={rightColumnStyle}>
                             <div style={scoreStyle}>
-                                {entry.team1Score} – {entry.team2Score}
+                                {entry.team1Score} - {entry.team2Score}
                             </div>
                         </div>
                     </div>

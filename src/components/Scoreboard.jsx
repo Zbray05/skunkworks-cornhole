@@ -243,7 +243,6 @@ export default function Scoreboard({ round, roundData, onGameComplete }) {
             <div style={separatorStyle} />
 
             <div style={scoresRowStyle}>
-                {/* Team 1 Card */}
                 <div style={cardStyle}>
                     <div style={teamLabelStyle}>Team 1</div>
                     <div style={scoreNumberStyle("team1")}>{team1Score}</div>
@@ -255,7 +254,6 @@ export default function Scoreboard({ round, roundData, onGameComplete }) {
                     </button>
                 </div>
 
-                {/* Team 2 Card */}
                 <div style={cardStyle}>
                     <div style={teamLabelStyle}>Team 2</div>
                     <div style={scoreNumberStyle("team2")}>{team2Score}</div>
