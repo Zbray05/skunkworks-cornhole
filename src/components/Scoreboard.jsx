@@ -20,6 +20,8 @@ export default function Scoreboard({ round, roundData, onGameComplete }) {
 
     const handleGameComplete = () => {
         const winner = team1Score > team2Score ? "team1" : "team2";
+        setTeam1Score(0);
+        setTeam2Score(0);
         onGameComplete(winner, team1Score, team2Score, round);
     };
 
@@ -150,14 +152,6 @@ export default function Scoreboard({ round, roundData, onGameComplete }) {
         border: "none",
         borderRadius: "4px",
         cursor: "pointer",
-    };
-
-    const resultTextStyle = {
-        textAlign: "center",
-        fontSize: "1rem",
-        fontWeight: 500,
-        color: "#444444",
-        marginBottom: "0.75rem",
     };
 
     const completeButtonStyle = {

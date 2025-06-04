@@ -93,19 +93,16 @@ export default function GameStats({ gameNumber, gameWinner, readCountFromStorage
 
     return (
         <div style={containerStyle}>
-            {/* Total Games */}
-            <div style={totalGamesStyle}>
-                <div style={labelStyle}>Total Games</div>
-                <div style={numberStyle}>{totalGames}</div>
-            </div>
-
-            {/* Team 1 Wins */}
             <div style={team1Style}>
                 <div style={labelStyle}>Team 1 Wins</div>
                 <div style={numberStyle}>{team1Wins}</div>
             </div>
 
-            {/* Team 2 Wins */}
+            <div style={totalGamesStyle}>
+                <div style={labelStyle}>Total Games</div>
+                <div style={numberStyle}>{totalGames}</div>
+            </div>
+
             <div style={team2Style}>
                 <div style={labelStyle}>Team 2 Wins</div>
                 <div style={numberStyle}>{team2Wins}</div>

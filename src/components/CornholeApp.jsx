@@ -45,6 +45,7 @@ export default function CornholeApp() {
         setTotalRounds(roundsCount);
 
         setGameNumber((prev) => prev + 1);
+        setTotalRounds(0);
     };
 
     return (
