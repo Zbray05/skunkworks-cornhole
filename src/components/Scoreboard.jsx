@@ -19,6 +19,7 @@ export default function Scoreboard({ round, roundData, onGameComplete }) {
     }, [roundData]);
 
     const handleGameComplete = () => {
+        if (team1Score === 0 && team2Score === 0) return
         const winner = team1Score > team2Score ? "team1" : "team2";
         setTeam1Score(0);
         setTeam2Score(0);

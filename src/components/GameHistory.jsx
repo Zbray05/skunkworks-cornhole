@@ -1,10 +1,5 @@
-// src/components/GameHistory.jsx
-
 import React, { useEffect, useRef, useState } from "react";
 
-/**
- * Reads existing history array from localStorage under "gameHistory".
- */
 function readHistoryFromStorage() {
     try {
         const json = localStorage.getItem("gameHistory");
@@ -38,6 +33,7 @@ export default function GameHistory({
         const stored = readHistoryFromStorage();
         setHistory(stored);
         prevGameRef.current = gameNumber;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {

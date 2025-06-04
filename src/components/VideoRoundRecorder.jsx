@@ -1,8 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 
-/**
- * Flip this flag to `false` if you want to hide the played‐back recording.
- */
 const ENABLE_PLAYBACK = false;
 
 export default function VideoRecorderModule(props) {
@@ -188,7 +185,6 @@ export default function VideoRecorderModule(props) {
 
                     {!mediaStream && (
                         <div style={placeholderStyle}>
-                            {/* Simple camera SVG */}
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="48"
