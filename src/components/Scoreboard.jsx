@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PlayAudio from "./PlayAudio.jsx";
 
 function defaultCalculateScores(currentScore, scoreData) {
     const result = currentScore || { team1score: 0, team2score: 0 };
@@ -22,6 +23,8 @@ export default function Scoreboard({
     const [team2Score, setTeam2Score] = useState(0);
     const [editingField, setEditingField] = useState(null);
     const [tempValue, setTempValue] = useState("");
+    const [gameCompleted, setGameCompleted] = useState(false);
+    const [winner, setWinner] = useState({});
 
     useEffect(() => {
         const { team1score, team2score } = calculateScores(roundData);
@@ -30,8 +33,16 @@ export default function Scoreboard({
     }, [roundData, calculateScores]);
 
     const handleGameComplete = () => {
-        const winner = team1Score > team2Score ? "team1" : "team2";
-        onGameComplete(winner, team1Score, team2Score, round);
+        const newWinner = team1Score > team2Score ? "team1" : "team2";
+        onGameComplete(newWinner, team1Score, team2Score, round);
+        // console.log("game completed with winner:", newWinner);
+
+        setWinner({
+            team1: team1Score,
+            team2: team2Score,
+            winner: newWinner,
+        });
+        setGameCompleted(true);
     };
 
     const handleEditClick = (team) => {
@@ -46,6 +57,7 @@ export default function Scoreboard({
             else setTeam2Score(val);
         }
         setEditingField(null);
+        // console.log("scores updated on save");
     };
 
     const handleCancel = () => {
@@ -285,6 +297,8 @@ export default function Scoreboard({
                 </div>
             </div>
 
+
+
             {/* Result Text (no tie case) */}
             <div style={resultTextStyle}>{getResultText()}</div>
 
@@ -292,6 +306,7 @@ export default function Scoreboard({
             <button style={completeButtonStyle} onClick={handleGameComplete}>
                 Complete Game
             </button>
+            <PlayAudio winner={winner} />
         </div>
     );
 }

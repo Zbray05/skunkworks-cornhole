@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Scoreboard from "./Scoreboard.jsx";
 import GameStats from "./GameStats.jsx";
 import GameHistory from "./GameHistory.jsx";
+// import GameAudio from "./GameAudio.jsx";
 import VideoRoundRecorder from "./VideoRoundRecorder.jsx";
 
 export default function CornholeApp() {
@@ -54,6 +55,8 @@ export default function CornholeApp() {
                 team2FinalScore={team2FinalScore}
                 totalRounds={totalRounds}
             />
+            {/* <GameAudio/> */}
+
         </div>
     );
 }
